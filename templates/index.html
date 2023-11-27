@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Name Entity Recognition App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: rgba(0, 0, 0, 0.9);
+      height: 100%;
+    }
+
+    form {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -100px;
+      margin-left: -250px;
+      width: 500px;
+      height: 200px;
+      border: 4px dashed #fff;
+    }
+
+    form p {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      line-height: 170px;
+      color: #ffffff;
+      font-family: Arial;
+    }
+
+    form input {
+      position: absolute;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      outline: none;
+      opacity: 0;
+    }
+
+    form button {
+      margin: 0;
+      color: #fff;
+      background: #16a085;
+      border: none;
+      width: 508px;
+      height: 35px;
+      margin-top: -20px;
+      margin-left: -4px;
+      border-radius: 4px;
+      border-bottom: 4px solid #117A60;
+      transition: all .2s ease;
+      outline: none;
+    }
+
+    form button:hover {
+      background: #149174;
+      color: #0C5645;
+    }
+
+    form button:active {
+      border: 0;
+    }
+
+    .Main-Container {
+      display: flex;
+      width: 100%;
+      height: 94vh;
+    }
+
+    .Main-Container .small-container {
+      flex: 1;
+      width: 100%; 
+      padding: 2rem;
+      font-size: 25px;
+    }
+
+    .Main-Container .small-container:first-child {
+      border-right: 1px solid #ffffff;
+    }
+
+    .Main-Container .small-container span {
+      background: #16a085;
+      padding: 10px;
+      border-radius: 1rem;
+    }
+
+    .content {
+      font-size: 1.7rem;
+      padding-top: 1rem;
+    }
+
+    .restart-btn-container{
+      display: flex;
+      justify-content: center;
+    }
+
+    .restart-btn-container button{
+      background: #16a085;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      transform: translateY(-27rem);
+    }
+
+  </style>
+</head>
+<body class="bg-dark">
+
+
+  {% if html and text %}
+  <div class="Main-Container">
+    <div class="small-container">
+      <span class="text-white">Original Text</span>
+      <div class="content text-white">
+        {{text|safe}}
+      </div>
+    </div>
+    <div class="small-container">
+      <span class="text-white">Entity Text</span>
+      <div class="content text-white">
+        {{html|safe}}
+      </div>
+    </div>
+  </div>
+  <div class="restart-btn-container">
+    <button class="text-white "  onclick="function myFunction() {window.location.replace('/');} myFunction()"><i class="fa fa-refresh"></i></button>
+  </div>
+  {% else %}
+  <form action="/entity" method="post" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <p>Drag your files here or click in this area.</p>
+    <button type="submit">Upload</button>
+  </form>
+  {% endif %}
+
+  <script >
+
+    $(document).ready(function(){
+      $('#restButton').click(function () {
+      alert('Hello'); // Display the "Hello" alert
+      });
+
+
+      $('form input').change(function () {
+        $('form p').text(this.files.length + " file(s) selected");
+      });
+    });
+
+
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>
